@@ -2,7 +2,7 @@
 <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 d-flex flex-column justify-content-around p-4 bg-white content-box m-4 border rounded shadow-sm box-content">
     <div>
         <h2 class="text-center">Matching Numbers</h2>
-        <hr class="m-0 p-0"/>
+        <hr class="m-0 p-0" />
         <div>
             <div class="my-4 p-2 text-md mx-4 border border-2 border-secondary d-flex align-items-center justify-content-center rounded ">
                 <span v-if="array.length > 0">{{ array.join(", ") }}</span>
@@ -10,7 +10,7 @@
                     Click on Create New Array button</span>
             </div>
             <div class="d-flex flex-column align-items-center">
-                <button type="button"  class="btn btn-primary mb-2 py-2 w-75" @click="generateArray">
+                <button type="button" class="btn btn-primary mb-2 py-2 w-75" @click="generateArray">
                     Create New Array
                 </button>
                 <button type="button" class="btn btn btn-outline-primary mb-2 py-2 w-75" @click="findCombinations">
@@ -34,7 +34,7 @@
     <p v-if="array.length === 0" class="text-info text-center">
         No array or combinations available
     </p>
-         <!--I added the showCombinations so as to not show the combinations for the old array and prompt the user to click on the combination button to  view the new combiantions -->
+    <!--I added the showCombinations so as to not show the combinations for the old array and prompt the user to click on the combination button to  view the new combiantions -->
     <span v-else-if="!showCombinations && array.length > 0" class="text-info text-center">
         Click on the Find Combinations button to view combination of 21 for this array</span>
     <span v-else-if="array.length > 0 && combinations.length === 0" class="text-info text-center">There were no combinations of 21 for this array
@@ -76,16 +76,16 @@ export default {
             this.showCombinations = false;
         },
         findCombinations() {
-          this.combinations = [];
-          //before this solution I opted fo the nested loop, but it did not meet the performant criteria. There were other solutions which included .find methods which are after researching I found out that they were less performant
-          for (let i = 0; i < this.array.length; i++) { 
-            const num1 = this.array[i];//the 1st num you want to compare
-            const num2 = 21 - num1; // here I substract the num1 for 21 to get the other num that I can look up for the array (as the total of these two numbers make 21)
-             const indexOfNum2 = this.array.indexOf(num2)//here I am looking of the index of the num2
-            if (this.array.includes(num2) && indexOfNum2 > i) { //this condition will execute when the array includes num2 and index of num 2 > then the index of the current index. This makes sure you dont get duplicate combinations F.ex 2 &10 and 10 & 2
-              this.combinations.push([i+1, indexOfNum2+1]);// Pushed an array as we require combinations and it will be easy to use later as done in line 28
+            this.combinations = [];
+            //before this solution I opted fo the nested loop, but it did not meet the performant criteria (considering we were dealing with a huge number of elements). There were other solutions which included .find methods which after researching I found out that they were less performant
+            for (let i = 0; i < this.array.length; i++) {
+                const num1 = this.array[i]; //the 1st num you want to compare
+                const num2 = 21 - num1; // here I substract the num1 for 21 to get the other num that I can look up for the array (as the total of these two numbers make 21)
+                const indexOfNum2 = this.array.indexOf(num2) //here I am looking of the index of the num2
+                if (this.array.includes(num2) && indexOfNum2 > i) { //this condition will execute when the array includes num2 & and index of num 2 > then the index of the current index. This makes sure you dont get duplicate combinations F.ex 2 &10 and 10 & 2
+                    this.combinations.push([i + 1, indexOfNum2 + 1]); // Pushed an array as we require combinations and it will be easy to use later as done in line 28
+                }
             }
-          }
             this.showCombinations = true;
         },
     },
