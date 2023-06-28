@@ -1,19 +1,19 @@
 <template>
-<div class="col-sm-12 col-md-6 col-lg-4 d-flex flex-column justify-content-around p-4 bg-white content-box m-4 border rounded shadow-sm">
+<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 d-flex flex-column justify-content-around p-4 bg-white content-box m-4 border rounded shadow-sm box-content">
     <div>
         <h2 class="text-center">Matching Numbers</h2>
-        <hr />
+        <hr class="m-0 p-0"/>
         <div>
-            <div class="my-3 p-2 text-md mx-4 border border-2 border-secondary d-flex align-items-center justify-content-center rounded ">
+            <div class="my-4 p-2 text-md mx-4 border border-2 border-secondary d-flex align-items-center justify-content-center rounded ">
                 <span v-if="array.length > 0">{{ array.join(", ") }}</span>
                 <span v-else class="info-text">
                     Click on Create New Array button</span>
             </div>
             <div class="d-flex flex-column align-items-center">
-                <button class="btn btn-primary my-3 py-2 w-75" @click="generateArray">
+                <button type="button"  class="btn btn-primary mb-2 py-2 w-75" @click="generateArray">
                     Create New Array
                 </button>
-                <button class="btn btn btn-outline-primary mb-2 py-2 w-75" @click="findCombinations">
+                <button type="button" class="btn btn btn-outline-primary mb-2 py-2 w-75" @click="findCombinations">
                     Find Combinations
                 </button>
             </div>
@@ -69,23 +69,23 @@ export default {
             while (this.array.length < 10) {
                 const randomInteger = Math.floor(Math.random() * 20) + 1;
                 if (this.array.indexOf(randomInteger) === -1) {
-                    // this line checks for duplicates. If the random integer  does not exist already (if its poistion is -1) in the array, then it will push it to the array
+                    // this line checks for duplicates. If the random integer does not exist already (if its poistion is -1) in the array, then it will push it to the array. I explored the new Set methos for this. But this I flet was more readable
                     this.array.push(randomInteger);
                 }
             }
             this.showCombinations = false;
         },
         findCombinations() {
-            this.combinations = [];
-            //I nested the loop so as to get the all the possible combination with the 2 variables mentioned (i, j)
-            for (let i = 0; i < this.array.length; i++) {
-                for (let j = i + 1; j < this.array.length; j++) {
-                    //Initially I did not add the +1 in the above line.However adding it  avoids comparing the interger with itself.
-                    if (this.array[i] + this.array[j] === 21) {
-                        this.combinations.push([i + 1, j + 1]); //Adding pushed an array as we require combinations and it will be easy to use later as done in line 29
-                    }
-                }
+          this.combinations = [];
+          //before this solution I opted fo the nested loop, but it did not meet the performant criteria. There were other solutions which included .find methods which are after researching I found out that they were less performant
+          for (let i = 0; i < this.array.length; i++) { 
+            const num1 = this.array[i];//the 1st num you want to compare
+            const num2 = 21 - num1; // here I substract the num1 for 21 to get the other num that I can look up for the array (as the total of these two numbers make 21)
+             const indexOfNum2 = this.array.indexOf(num2)//here I am looking of the index of the num2
+            if (this.array.includes(num2) && indexOfNum2 > i) { //this condition will execute when the array includes num2 and index of num 2 > then the index of the current index. This makes sure you dont get duplicate combinations F.ex 2 &10 and 10 & 2
+              this.combinations.push([i+1, indexOfNum2+1]);// Pushed an array as we require combinations and it will be easy to use later as done in line 28
             }
+          }
             this.showCombinations = true;
         },
     },

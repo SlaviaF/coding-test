@@ -5,16 +5,18 @@ body {
   font-size: 1rem;
 }
 
-
 .page-background {
   background-color: #f6f9fc;
 }
 
 .info-text {
-    color: #808080;
+    color: #8A8A8A;
 }
 
 .btn-color {
     background-color:5E72E4;
 }
 
+.box-content {
+  max-height:500px;
+}

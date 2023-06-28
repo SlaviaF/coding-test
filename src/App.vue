@@ -1,7 +1,7 @@
 <template>
 <div id="app">
-    <div class="vh-100 d-flex container-fluid justify-content-center align-items-lg-center page-background row rounded" >   
-            <CombinationSum />   
+    <div class="vh-100 vw-100 d-flex justify-content-center align-items-lg-center page-background row m-0">
+        <CombinationSum />
     </div>
 </div>
 </template>
@@ -16,5 +16,3 @@ export default {
     }
 }
 </script>
-
-
