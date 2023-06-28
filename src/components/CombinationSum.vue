@@ -69,7 +69,7 @@ export default {
             while (this.array.length < 10) {
                 const randomInteger = Math.floor(Math.random() * 20) + 1;
                 if (this.array.indexOf(randomInteger) === -1) {
-                    // this line checks for duplicates. If the random integer does not exist already (if its poistion is -1) in the array, then it will push it to the array. I explored the new Set methos for this. But this I flet was more readable
+                    // This line checks for duplicates. If the random integer does not exist already (if its poistion is -1) in the array, then it will push it to the array. I explored the new Set methos for this. But this I felt was more readable
                     this.array.push(randomInteger);
                 }
             }
@@ -77,12 +77,12 @@ export default {
         },
         findCombinations() {
             this.combinations = [];
-            //before this solution I opted fo the nested loop, but it did not meet the performant criteria (considering we were dealing with a huge number of elements). There were other solutions which included .find methods which after researching I found out that they were less performant
+            //Before this solution I opted fo the nested loop, but it did not meet the performant criteria (considering we were dealing with a huge number of elements). There were other solutions which included .find methods which after researching I found out that they were less performant
             for (let i = 0; i < this.array.length; i++) {
-                const num1 = this.array[i]; //the 1st num you want to compare
-                const num2 = 21 - num1; // here I substract the num1 for 21 to get the other num that I can look up for the array (as the total of these two numbers make 21)
-                const indexOfNum2 = this.array.indexOf(num2) //here I am looking of the index of the num2
-                if (this.array.includes(num2) && indexOfNum2 > i) { //this condition will execute when the array includes num2 & and index of num 2 > then the index of the current index. This makes sure you dont get duplicate combinations F.ex 2 &10 and 10 & 2
+                const num1 = this.array[i]; //The 1st num you want to compare
+                const num2 = 21 - num1; // Here I substract the num1 for 21 to get the other num that I can look up for the array (as the total of these two numbers make 21)
+                const indexOfNum2 = this.array.indexOf(num2) //Here I am looking of the index of the num2
+                if (this.array.includes(num2) && indexOfNum2 > i) { //This condition will execute when the array includes num2 & and index of num 2 > then the index of the current index. This makes sure you dont get duplicate combinations F.ex 2 &10 and 10 & 2
                     this.combinations.push([i + 1, indexOfNum2 + 1]); // Pushed an array as we require combinations and it will be easy to use later as done in line 28
                 }
             }
